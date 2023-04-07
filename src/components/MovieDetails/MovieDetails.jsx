@@ -39,7 +39,7 @@ const MovieDetails = () => {
           <p>{movieDetails.description}</p>
         </div>
       ) : (
-        <div>loading</div>
+        <></>
       )}
     </>
   );
