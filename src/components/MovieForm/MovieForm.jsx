@@ -4,12 +4,14 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useDispatch } from 'react-redux'
+import { useHistory } from "react-router-dom";
 
 const MovieForm = () => {
   const [newMovie, setNewMovie] = useState({title: '', poster: '', description: '', genre_id: ''});
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,6 +75,7 @@ const MovieForm = () => {
           <MenuItem onClick={() => setGenre(13)}>Superhero</MenuItem>
         </Menu>
         <Button id="basic-button" type="submit" variant="contained">Submit</Button>
+        <Button id="basic-button" onClick={() => history.push('/')} variant="contained">Cancel</Button>
       </form>
     </div>
   );
