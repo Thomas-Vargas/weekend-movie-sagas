@@ -1,7 +1,10 @@
+body {
+  background-color: rgb(113, 112, 112);
+}
+
 .App {
   text-align: center;
 }
-
 
 .App-header {
   background-color: #222;
@@ -17,6 +20,18 @@
 .App-intro {
   font-size: large;
 }
+
+.poster {
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.movie-description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

@@ -3,7 +3,7 @@ import './App.css';
 import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
 import MovieForm from '../MovieForm/MovieForm';
-import NavBar from './Navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 
 function App() {
   return (

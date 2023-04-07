@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const MovieDetails = () => {
   const dispatch = useDispatch();
@@ -19,10 +22,10 @@ const MovieDetails = () => {
   };
 
   const handleBack = () => {
-    console.log('hello');
-    dispatch({ type: 'CLEAR_MOVIE_DETAILS' });
-    history.push('/');
-  }
+    console.log("hello");
+    dispatch({ type: "CLEAR_MOVIE_DETAILS" });
+    history.push("/");
+  };
 
   useEffect(() => {
     getMovieDetails();
@@ -30,13 +33,30 @@ const MovieDetails = () => {
 
   return (
     <>
-    <button onClick={() => handleBack()}>Back</button>
+      <button onClick={() => handleBack()}>Back</button>
       {movieDetails.title ? (
-        <div>
-          <h1>{movieDetails.title}</h1>
-          <img src={movieDetails.poster}></img>
-          <p>{movieDetails.genres}</p>
-          <p>{movieDetails.description}</p>
+        <div className="movie-description">
+          <div className="movie-card">
+            <Card sx={{ maxWidth: 700, padding: 2 }}>
+              <CardContent>
+                <Typography sx={{ fontSize: 30 }} gutterBottom>
+                  {movieDetails.title}
+                </Typography>
+                <img
+                  onClick={() => history.push(`/details/${movieDetails.id}`)}
+                  className="poster"
+                  src={movieDetails.poster}
+                  alt={movieDetails.title}
+                />
+                <Typography sx={{ fontSize: 20 }} gutterBottom>
+                  {movieDetails.genres}
+                </Typography>
+                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                  {movieDetails.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       ) : (
         <></>
