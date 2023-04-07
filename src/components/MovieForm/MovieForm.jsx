@@ -3,27 +3,32 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
 
 const MovieForm = () => {
-  const [newMovie, setNewMovie] = useState({title: '', poster: '', description: ''});
+  const [newMovie, setNewMovie] = useState({title: '', poster: '', description: '', genre_id: ''});
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const setGenre = (genreId) => {
+    setNewMovie({...newMovie, genre_id: genreId})
+    console.log(newMovie);
     setAnchorEl(null);
   };
 
   const handleInputChange = (keyToUpdate) => {
     setNewMovie({...newMovie, [keyToUpdate]: event.target.value});
+    console.log(newMovie);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('hello');
+    dispatch({type: 'POST_NEW_MOVIE', payload: newMovie});
   };
 
   return (
@@ -48,24 +53,24 @@ const MovieForm = () => {
           id="basic-menu"
           anchorEl={anchorEl}
           open={open}
-          onClose={handleClose}
+          onClose={setGenre}
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleClose}>Adventure</MenuItem>
-          <MenuItem onClick={handleClose}>Animated</MenuItem>
-          <MenuItem onClick={handleClose}>Biographical</MenuItem>
-          <MenuItem onClick={handleClose}>Comedy</MenuItem>
-          <MenuItem onClick={handleClose}>Disaster</MenuItem>
-          <MenuItem onClick={handleClose}>Drama</MenuItem>
-          <MenuItem onClick={handleClose}>Epic</MenuItem>
-          <MenuItem onClick={handleClose}>Fantasy</MenuItem>
-          <MenuItem onClick={handleClose}>Musical</MenuItem>
-          <MenuItem onClick={handleClose}>Romantic</MenuItem>
-          <MenuItem onClick={handleClose}>Science Fiction</MenuItem>
-          <MenuItem onClick={handleClose}>Science-Opera</MenuItem>
-          <MenuItem onClick={handleClose}>Superhero</MenuItem>
+          <MenuItem onClick={() => setGenre(1)}>Adventure</MenuItem>
+          <MenuItem onClick={() => setGenre(2)}>Animated</MenuItem>
+          <MenuItem onClick={() => setGenre(3)}>Biographical</MenuItem>
+          <MenuItem onClick={() => setGenre(4)}>Comedy</MenuItem>
+          <MenuItem onClick={() => setGenre(5)}>Disaster</MenuItem>
+          <MenuItem onClick={() => setGenre(6)}>Drama</MenuItem>
+          <MenuItem onClick={() => setGenre(7)}>Epic</MenuItem>
+          <MenuItem onClick={() => setGenre(8)}>Fantasy</MenuItem>
+          <MenuItem onClick={() => setGenre(9)}>Musical</MenuItem>
+          <MenuItem onClick={() => setGenre(10)}>Romantic</MenuItem>
+          <MenuItem onClick={() => setGenre(11)}>Science Fiction</MenuItem>
+          <MenuItem onClick={() => setGenre(12)}>Science-Opera</MenuItem>
+          <MenuItem onClick={() => setGenre(13)}>Superhero</MenuItem>
         </Menu>
         <Button id="basic-button" type="submit" variant="contained">Submit</Button>
       </form>
