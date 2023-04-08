@@ -4,6 +4,7 @@ import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
 import MovieForm from '../MovieForm/MovieForm';
 import NavBar from '../Navbar/Navbar';
+import EditPage from '../EditPage/EditPage';
 
 function App() {
   return (
@@ -18,11 +19,14 @@ function App() {
         <Route path='/details/:id'>
           <MovieDetails />
         </Route>
-        {/* add movie route, improve form, add cancel button */}
+        {/* Add Movie Page */}
         <Route path='/addMovie'>
           <MovieForm />
         </Route>
-        {/* Add Movie page */}
+        {/* Edit page */}
+        <Route path='/edit/:id'>
+          <EditPage />
+        </Route>
       </Router>
     </div>
   );
