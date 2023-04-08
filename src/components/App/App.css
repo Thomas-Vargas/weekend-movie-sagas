@@ -56,6 +56,31 @@ body {
   justify-content: space-between;
 }
 
+h1 {
+  color: white;
+}
+
+.add-movie-form {
+  background-color: white;
+  margin: auto;
+  width: 800px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.add-movie-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-movie-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
