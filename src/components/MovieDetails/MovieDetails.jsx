@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 const MovieDetails = () => {
   const dispatch = useDispatch();
@@ -21,11 +22,9 @@ const MovieDetails = () => {
     });
   };
 
-  const handleBack = () => {
-    console.log("hello");
-    dispatch({ type: "CLEAR_MOVIE_DETAILS" });
-    history.push("/");
-  };
+  const handleEdit = () => {
+    history.push(`/edit/${id}`);
+  }
 
   useEffect(() => {
     getMovieDetails();
@@ -33,7 +32,6 @@ const MovieDetails = () => {
 
   return (
     <>
-      <button onClick={() => handleBack()}>Back</button>
       {movieDetails.title ? (
         <div className="movie-description">
           <div className="movie-card">
@@ -43,7 +41,6 @@ const MovieDetails = () => {
                   {movieDetails.title}
                 </Typography>
                 <img
-                  onClick={() => history.push(`/details/${movieDetails.id}`)}
                   className="poster"
                   src={movieDetails.poster}
                   alt={movieDetails.title}
@@ -54,6 +51,7 @@ const MovieDetails = () => {
                 <Typography sx={{ fontSize: 16 }} gutterBottom>
                   {movieDetails.description}
                 </Typography>
+                <Button onClick={handleEdit} variant="contained">Edit</Button>
               </CardContent>
             </Card>
           </div>

@@ -32,6 +32,29 @@ body {
   align-items: center;
 }
 
+.movie-edit {
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
+}
+
+.edit-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.edit-content {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

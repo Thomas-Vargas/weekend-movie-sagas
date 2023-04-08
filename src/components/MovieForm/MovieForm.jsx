@@ -19,13 +19,13 @@ const MovieForm = () => {
 
   const setGenre = (genreId) => {
     setNewMovie({...newMovie, genre_id: genreId})
-    console.log(newMovie);
+    // console.log(newMovie);
     setAnchorEl(null);
   };
 
   const handleInputChange = (keyToUpdate) => {
     setNewMovie({...newMovie, [keyToUpdate]: event.target.value});
-    console.log(newMovie);
+    // console.log(newMovie);
   };
 
   const handleSubmit = (event) => {
@@ -77,6 +77,11 @@ const MovieForm = () => {
         <Button id="basic-button" type="submit" variant="contained">Submit</Button>
         <Button id="basic-button" onClick={() => history.push('/')} variant="contained">Cancel</Button>
       </form>
+
+      {/* TODO
+        - display success image/alert when submit happens
+        - Display the category selected by user
+      */}
     </div>
   );
 };
