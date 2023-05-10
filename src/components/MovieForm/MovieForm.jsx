@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const MovieForm = () => {
   const [newMovie, setNewMovie] = useState({
@@ -17,6 +18,25 @@ const MovieForm = () => {
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [file, setFile] = useState();
+  const [description, setDescription] = useState("");
+  const [imageName, setImageName] = useState();
+
+  const submitImage = async (event) => {
+    event.preventDefault();
+
+    // Send the file and description to the server
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("description", description);
+
+    const result = await axios.post("/api/images", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    console.log(result.data);
+    setImageName(result.data);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,6 +135,37 @@ const MovieForm = () => {
         - display success image/alert when submit happens
         - Display the category selected by user
       */}
+
+      <div className="multer">
+        <div className="App">
+          <form onSubmit={submitImage}>
+            <input
+              filename={file}
+              onChange={(e) => setFile(e.target.files[0])}
+              type="file"
+              accept="image/*"
+            ></input>
+            <input
+              onChange={(e) => setDescription(e.target.value)}
+              type="text"
+            ></input>
+            <button type="submit">Submit</button>
+          </form>
+          {imageName && (
+            <div>
+              <h3>Uploaded Image:</h3>
+              <img style={{ height: "600px" }} src={imageName} alt="Uploaded" />
+            </div>
+          )}
+          <div>
+            <img
+              style={{ height: "600px" }}
+              src="https://aws-spike.s3.amazonaws.com/1683733509662"
+              alt="Uploaded"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
