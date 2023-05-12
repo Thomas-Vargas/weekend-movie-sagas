@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const AWS = require('aws-sdk');
 const multerS3 = require('multer-s3');
+const PDFDocument = require('pdfkit');
 require('dotenv').config();
 
 // Create an instance of the AWS.S3 class with your AWS credentials

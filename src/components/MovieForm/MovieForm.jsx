@@ -7,6 +7,13 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
+// docx stuff
+import { saveAs } from "file-saver";
+const Docxtemplater = require("docxtemplater");
+import templateContent from "./ShortFormTemplate.docx";
+import JSZipUtils from "jszip-utils";
+import JSZip from "jszip";
+
 const MovieForm = () => {
   const [newMovie, setNewMovie] = useState({
     title: "",
@@ -56,6 +63,60 @@ const MovieForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch({ type: "POST_NEW_MOVIE", payload: newMovie });
+  };
+
+
+  // Test output for checked boxes
+  console.log(`Yes \u2610 No \u2611 N/A \u2610`);
+
+  const generateDocx = () => {
+    // Create a new Docxtemplater instance
+    const doc = new Docxtemplater();
+
+    // Load the template asynchronously using JSZipUtils
+    JSZipUtils.getBinaryContent(templateContent, (error, content) => {
+      if (error) {
+        throw new Error("Error loading template: " + error);
+      }
+
+      // Load the template content
+      const zip = new JSZip(content);
+      doc.loadZip(zip);
+
+      // Define the data to be filled in the template
+      const data = {
+        hospitalName: "Ryan stinks",
+        address: "Test Address",
+        clinicianName: "Test Clinician",
+        eventReportNumber: "12345",
+        country: "united states"
+      };
+
+      // Bind the data to the template
+      doc.setData(data);
+
+      // Generate the document
+      try {
+        doc.render();
+      } catch (error) {
+        throw new Error("Error rendering template: " + error);
+      }
+
+      // Get the generated document as an ArrayBuffer
+      const buffer = doc.getZip().generate({ type: "arraybuffer" });
+
+      // Convert the ArrayBuffer to a Blob
+
+      const generatedContent = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      });
+
+      // Save the generated document using file-saver
+      const outputFileName = "output.docx";
+      saveAs(generatedContent, outputFileName);
+
+      console.log("Document created successfully");
+    });
   };
 
   return (
@@ -157,13 +218,8 @@ const MovieForm = () => {
               <img style={{ height: "600px" }} src={imageName} alt="Uploaded" />
             </div>
           )}
-          <div>
-            <img
-              style={{ height: "600px" }}
-              src="https://aws-spike.s3.amazonaws.com/1683733509662"
-              alt="Uploaded"
-            />
-          </div>
+
+          <button onClick={() => generateDocx()}>Create PDF</button>
         </div>
       </div>
     </div>
